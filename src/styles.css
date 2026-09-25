@@ -299,6 +299,15 @@ code {
   background: var(--superficie-alta);
 }
 
+.botao--perigo {
+  background: var(--perigo);
+  color: #1d0d0a;
+}
+
+.botao--perigo:hover {
+  background: #f58a7b;
+}
+
 .botao--largo {
   width: 100%;
 }
@@ -674,6 +683,47 @@ textarea.campo__entrada {
 
 .desafio__cabecalho .apagado {
   margin: 0.25rem 0 0;
+}
+
+.desafio__editar {
+  margin-top: 0.375rem;
+  margin-left: -0.25rem;
+  color: var(--texto-fraco);
+  font-size: 0.875rem;
+}
+
+/* Painel de quem criou o desafio: mudar nome e apagar */
+.gerenciar .campo {
+  margin-bottom: 0.75rem;
+}
+
+.gerenciar__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.gerenciar__acoes .botao {
+  flex: 1 1 9rem;
+}
+
+.gerenciar__perigo {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--linha);
+}
+
+.gerenciar__perigo .link {
+  margin-left: -0.25rem;
+}
+
+.gerenciar__pergunta {
+  margin: 0 0 0.25rem;
+  font-weight: 700;
+}
+
+.gerenciar__perigo .apagado {
+  margin: 0 0 0.75rem;
 }
 
 .abas {

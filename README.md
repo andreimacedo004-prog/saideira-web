@@ -22,7 +22,7 @@ Outros comandos: `npm run build` (checa os tipos e gera `dist/`), `npm run lint`
 | `/` | Desafios de todos os seus grupos (os ativos primeiro), seus grupos, criar grupo ou entrar com código |
 | `/grupos/:id` | Membros, botão **Chamar a galera** (abre o compartilhar do celular com o link) e desafios do grupo |
 | `/convite/:codigo` | Onde cai quem abre o link de convite. Sem conta, passa pelo cadastro e volta para cá |
-| `/desafios/:id` | Abas **Feed** (cards com foto, pontos, reações e comentários), **Ranking** (com "Como pontuar") e **Meu resumo** (seus litros e suas cervejas, só você vê, mais o total da galera) |
+| `/desafios/:id` | Abas **Feed** (cards com foto, pontos, reações e comentários), **Ranking** (com "Como pontuar") e **Meu resumo** (seus litros e suas cervejas, só você vê, mais o total da galera). Quem criou o desafio vê **Editar desafio**: muda o nome ou apaga (com confirmação que diz quantos check-ins vão junto) |
 | `/desafios/:id/checkin` | Foto, tipo de rolê, lugar, amigos, cervejas com formato e quantidade, legenda e "esqueci de registrar na hora". Formato e quantidade não valem ponto nem aparecem no feed: vão só para o **Meu resumo** (`GET /api/desafios/:id/retrospectiva`) |
 
 ## Estrutura

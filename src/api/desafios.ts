@@ -5,6 +5,13 @@ export const meusDesafios = () => api.get<Desafio[]>("/api/desafios");
 
 export const buscarDesafio = (desafioId: number) => api.get<Desafio>(`/api/desafios/${desafioId}`);
 
+/** So quem criou. So o nome muda; as datas ficam. */
+export const renomearDesafio = (desafioId: number, nome: string) =>
+  api.patch<Desafio>(`/api/desafios/${desafioId}`, { nome });
+
+/** So quem criou. Leva junto os check-ins, reacoes e comentarios do desafio. */
+export const apagarDesafio = (desafioId: number) => api.delete(`/api/desafios/${desafioId}`);
+
 export const ranking = (desafioId: number) => api.get<PosicaoRanking[]>(`/api/desafios/${desafioId}/ranking`);
 
 export const feed = (desafioId: number) => api.get<CheckIn[]>(`/api/desafios/${desafioId}/checkins`);

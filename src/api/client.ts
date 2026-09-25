@@ -102,5 +102,6 @@ export const api = {
   get: <T>(caminho: string) => requisitar<T>(caminho),
   post: <T>(caminho: string, corpo?: unknown) => requisitar<T>(caminho, comCorpo("POST", corpo)),
   put: <T>(caminho: string, corpo?: unknown) => requisitar<T>(caminho, comCorpo("PUT", corpo)),
+  patch: <T>(caminho: string, corpo?: unknown) => requisitar<T>(caminho, comCorpo("PATCH", corpo)),
   delete: <T = void>(caminho: string) => requisitar<T>(caminho, { method: "DELETE" }),
 };

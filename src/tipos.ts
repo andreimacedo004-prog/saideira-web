@@ -54,6 +54,8 @@ export interface Desafio {
   dataInicio: string; // "2026-11-01"
   dataFim: string;
   status: StatusDesafio;
+  /** So quem criou ve "Editar desafio" (o backend confere de novo). */
+  criadoPorId: number;
 }
 
 /** RankingItemResponse.java */

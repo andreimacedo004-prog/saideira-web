@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { buscarDesafio, feed, ranking, regras as buscarRegras } from "../api/desafios";
+import { useAutenticacao } from "../auth/AuthContext";
 import CartaoCheckIn from "../componentes/CartaoCheckIn";
+import GerenciarDesafio from "../componentes/GerenciarDesafio";
 import MeuResumo from "../componentes/MeuResumo";
 import Ranking from "../componentes/Ranking";
 import { useRequisicao } from "../ganchos/useRequisicao";
@@ -23,6 +25,8 @@ export default function Desafio() {
   const checkIns = useRequisicao(() => feed(desafioId), desafioId);
   const posicoes = useRequisicao(() => ranking(desafioId), desafioId);
   const regras = useRequisicao(buscarRegras);
+  const { usuario } = useAutenticacao();
+  const [editando, setEditando] = useState(false);
 
   // Recado vindo da tela de check-in: "+23 pts!"
   const local = useLocation();
@@ -58,6 +62,7 @@ export default function Desafio() {
 
   const d = desafio.dados;
   const ativo = d.status === "ATIVO";
+  const souCriador = usuario?.id === d.criadoPorId;
 
   return (
     <div className="pagina pagina--com-botao">
@@ -76,7 +81,25 @@ export default function Desafio() {
           <span className={`selo selo--${d.status.toLowerCase()}`}>{STATUS_DESAFIO[d.status]}</span>{" "}
           {formatarDiaMes(d.dataInicio)} a {formatarDiaMes(d.dataFim)} · {descreverPrazo(d.dataInicio, d.dataFim)}
         </p>
+        {souCriador && !editando && (
+          <button className="link desafio__editar" onClick={() => setEditando(true)}>
+            ✏️ Editar desafio
+          </button>
+        )}
       </div>
+
+      {editando && (
+        <GerenciarDesafio
+          desafio={d}
+          totalCheckIns={checkIns.dados ? checkIns.dados.length : null}
+          aoRenomear={(atualizado) => {
+            desafio.definir(() => atualizado);
+            setEditando(false);
+          }}
+          aoApagar={() => navegar(`/grupos/${d.grupoId}`, { replace: true })}
+          aoFechar={() => setEditando(false)}
+        />
+      )}
 
       <div className="abas" role="tablist">
         <button role="tab" aria-selected={aba === "feed"} className={aba === "feed" ? "aba aba--ativa" : "aba"} onClick={() => trocarAba("feed")}>
