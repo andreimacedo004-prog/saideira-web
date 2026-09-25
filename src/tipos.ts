@@ -139,6 +139,22 @@ export interface NovoCheckIn {
   cervejas: ItemCerveja[];
 }
 
+/** CheckInParaEditarResponse.java — so o autor recebe (traz formato e quantidade) */
+export interface CheckInParaEditar {
+  id: number;
+  desafioId: number;
+  tipo: TipoRole;
+  local: string;
+  fotoUrl: string | null;
+  legenda: string | null;
+  feitoEm: string;
+  amigosIds: number[];
+  cervejas: { cerveja: Cerveja; formato: FormatoCerveja; quantidade: number }[];
+}
+
+/** EditarCheckInRequest.java — o horario nao muda, entao nao vai */
+export type EdicaoCheckIn = Omit<NovoCheckIn, "feitoEm">;
+
 /** RetrospectivaResponse.java — base do "Saideira Wrapped" */
 export interface Consumo {
   roles: number;

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { mensagemDeErro } from "../api/client";
 import { apagarCheckIn, desfazerReacao, reagir } from "../api/checkins";
 import { useAutenticacao } from "../auth/AuthContext";
@@ -12,6 +13,8 @@ import Comentarios from "./Comentarios";
 interface Props {
   checkIn: CheckIn;
   aoApagar: (checkInId: number) => void;
+  /** Desafio ainda valendo: o autor pode editar. Depois que acaba, os check-ins ficam como estao. */
+  editavel?: boolean;
 }
 
 /** De onde vieram os pontos, em texto curto: "rolê 10 · 2 cervejas novas · 1 amigo · lugar novo" */
@@ -23,7 +26,7 @@ function explicarPontos(c: CheckIn): string {
   return partes.join(" · ");
 }
 
-export default function CartaoCheckIn({ checkIn, aoApagar }: Props) {
+export default function CartaoCheckIn({ checkIn, aoApagar, editavel = false }: Props) {
   const { usuario } = useAutenticacao();
   const [reacoes, setReacoes] = useState<ReacaoResumo[]>(checkIn.reacoes);
   const [totalComentarios, setTotalComentarios] = useState(checkIn.totalComentarios);
@@ -103,9 +106,16 @@ export default function CartaoCheckIn({ checkIn, aoApagar }: Props) {
         <p className="checkin__explicacao">
           <span>{explicarPontos(checkIn)}</span>
           {meu && (
-            <button className="link link--perigo" onClick={apagar}>
-              Apagar
-            </button>
+            <span className="checkin__minhas-acoes">
+              {editavel && (
+                <Link to={`/checkins/${checkIn.id}/editar`} className="link">
+                  Editar
+                </Link>
+              )}
+              <button className="link link--perigo" onClick={apagar}>
+                Apagar
+              </button>
+            </span>
           )}
         </p>
       </div>

@@ -31,10 +31,14 @@ export default function Desafio() {
   // Recado vindo da tela de check-in: "+23 pts!"
   const local = useLocation();
   const navegar = useNavigate();
-  const [recado] = useState(() => ({
-    pontos: (local.state as { pontosGanhos?: number } | null)?.pontosGanhos ?? null,
-    caminho: local.pathname + local.search,
-  }));
+  const [recado] = useState(() => {
+    const estado = local.state as { pontosGanhos?: number; editado?: boolean } | null;
+    return {
+      pontos: estado?.pontosGanhos ?? null,
+      editado: estado?.editado ?? false,
+      caminho: local.pathname + local.search,
+    };
+  });
   const pontosGanhos = recado.pontos;
   const [mostrarRecado, setMostrarRecado] = useState(pontosGanhos !== null);
 
@@ -68,7 +72,15 @@ export default function Desafio() {
     <div className="pagina pagina--com-botao">
       {mostrarRecado && pontosGanhos !== null && (
         <div className="recado" role="status">
-          Check-in feito! <strong>+{pontosGanhos} pts</strong> 🍻
+          {recado.editado ? (
+            <>
+              Check-in atualizado! Agora vale <strong>+{pontosGanhos} pts</strong>
+            </>
+          ) : (
+            <>
+              Check-in feito! <strong>+{pontosGanhos} pts</strong> 🍻
+            </>
+          )}
         </div>
       )}
 
@@ -126,7 +138,7 @@ export default function Desafio() {
           )}
           <div className="feed">
             {checkIns.dados?.map((c) => (
-              <CartaoCheckIn key={c.id} checkIn={c} aoApagar={aoApagar} />
+              <CartaoCheckIn key={c.id} checkIn={c} aoApagar={aoApagar} editavel={d.status !== "ENCERRADO"} />
             ))}
           </div>
         </section>

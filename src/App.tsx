@@ -8,6 +8,7 @@ import Grupo from "./paginas/Grupo";
 import Convite from "./paginas/Convite";
 import Desafio from "./paginas/Desafio";
 import NovoCheckIn from "./paginas/NovoCheckIn";
+import EditarCheckIn from "./paginas/EditarCheckIn";
 
 /**
  * A `key` com o id faz a tela recomecar do zero ao trocar de desafio/grupo,
@@ -16,6 +17,11 @@ import NovoCheckIn from "./paginas/NovoCheckIn";
 function DesafioPorId() {
   const { desafioId } = useParams();
   return <Desafio key={desafioId} />;
+}
+
+function EditarCheckInPorId() {
+  const { checkInId } = useParams();
+  return <EditarCheckIn key={checkInId} />;
 }
 
 function GrupoPorId() {
@@ -44,6 +50,7 @@ export default function App() {
           <Route path="/convite/:codigo" element={<Convite />} />
           <Route path="/desafios/:desafioId" element={<DesafioPorId />} />
           <Route path="/desafios/:desafioId/checkin" element={<NovoCheckIn />} />
+          <Route path="/checkins/:checkInId/editar" element={<EditarCheckInPorId />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

@@ -24,6 +24,7 @@ Outros comandos: `npm run build` (checa os tipos e gera `dist/`), `npm run lint`
 | `/convite/:codigo` | Onde cai quem abre o link de convite. Sem conta, passa pelo cadastro e volta para cá |
 | `/desafios/:id` | Abas **Feed** (cards com foto, pontos, reações e comentários), **Ranking** (com "Como pontuar") e **Meu resumo** (seus litros e suas cervejas, só você vê, mais o total da galera). Quem criou o desafio vê **Editar desafio**: muda o nome ou apaga (com confirmação que diz quantos check-ins vão junto) |
 | `/desafios/:id/checkin` | Foto, tipo de rolê, lugar, amigos, cervejas com formato e quantidade, legenda e "esqueci de registrar na hora". Formato e quantidade não valem ponto nem aparecem no feed: vão só para o **Meu resumo** (`GET /api/desafios/:id/retrospectiva`) |
+| `/checkins/:id/editar` | A mesma tela, já preenchida, para o autor editar o check-in (botão **Editar** no card). Muda tudo menos o horário, e só enquanto o desafio não acabou |
 
 ## Estrutura
 
