@@ -55,7 +55,7 @@ Sem configurar, o app funciona normal, só sem foto. Para ligar:
 2. Em **Settings → Upload → Upload presets**, clique em **Add upload preset**:
    - **Signing mode: Unsigned**
    - nome, por exemplo, `saideira`
-   - vale limitar os formatos a `jpg, png, webp` e o tamanho máximo do arquivo
+   - deixe vazio o campo de formato da aba **Optimize and Deliver**: ele *converte* a imagem para um formato só, não limita. Com `jpg, png, webp` ali, todo upload volta com erro 400 ("Invalid extension in transformation")
 3. No `.env.local`:
    ```
    VITE_CLOUDINARY_CLOUD=seu-cloud-name
@@ -63,7 +63,7 @@ Sem configurar, o app funciona normal, só sem foto. Para ligar:
    ```
 4. Reinicie o `npm run dev`. Variáveis `VITE_*` só são lidas quando o Vite sobe.
 
-Um preset *unsigned* deixa qualquer pessoa que souber o nome dele subir imagem na sua conta. Para um app entre amigos isso é aceitável, e os limites de formato e tamanho seguram o abuso.
+Um preset *unsigned* deixa qualquer pessoa que souber o nome dele subir imagem na sua conta. Para um app entre amigos isso é aceitável. O app já manda a foto reduzida (~300 KB, sempre jpg). Se um dia virar problema, dá para trocar para upload assinado, com o backend autorizando cada envio.
 
 ## Testando no celular antes de publicar
 
