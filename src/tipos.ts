@@ -12,6 +12,8 @@ export interface Usuario {
   nome: string;
   fotoUrl: string | null;
   bio: string | null;
+  /** So mostra o menu "Admin"; quem decide o acesso e o servidor. */
+  admin: boolean;
 }
 
 /** UsuarioResumo.java — como os amigos aparecem (sem e-mail) */
@@ -67,6 +69,9 @@ export interface PosicaoRanking {
   cervejasNovas: number;
   amigosMarcados: number;
   lugaresNovos: number;
+  /** Soma dos ajustes do admin (ja dentro de `pontos`). */
+  ajuste: number;
+  ajustes: { pontos: number; motivo: string }[];
 }
 
 export type TipoRole = "BAR" | "FESTA" | "CHURRASCO" | "SHOW" | "VISITA" | "OUTRO";
@@ -191,4 +196,73 @@ export interface Regras {
   maxHorasRetroativo: number;
   maxCervejasPorCheckIn: number;
   formatos: OpcaoDeFormato[];
+}
+
+// ---------------------------------------------------------------
+// Area de admin (AdminDtos.java)
+// ---------------------------------------------------------------
+
+export interface AdminResumo {
+  usuarios: number;
+  grupos: number;
+  desafios: number;
+  checkIns: number;
+  checkInsUltimos7Dias: number;
+}
+
+export interface AdminUsuario {
+  id: number;
+  nome: string;
+  email: string;
+  criadoEm: string | null;
+  grupos: string[];
+  checkIns: number;
+  admin: boolean;
+}
+
+export interface AdminPreviaExclusao {
+  usuario: UsuarioResumo;
+  checkIns: number;
+  comentarios: number;
+  reacoes: number;
+  gruposRepassados: { grupo: string; novoDono: string }[];
+  gruposApagados: string[];
+  /** Preenchido quando a conta nao pode ser excluida (a propria, ou outro admin). */
+  bloqueio: string | null;
+}
+
+export interface AdminDesafio {
+  id: number;
+  nome: string;
+  grupoNome: string;
+  status: StatusDesafio;
+  dataInicio: string;
+  dataFim: string;
+  membros: number;
+  checkIns: number;
+}
+
+export interface AdminAjuste {
+  id: number;
+  usuario: UsuarioResumo;
+  pontos: number;
+  motivo: string;
+  criadoEm: string;
+  criadoPor: string | null;
+}
+
+export interface AdminDesafioDetalhe {
+  desafio: Desafio;
+  ranking: PosicaoRanking[];
+  checkIns: {
+    id: number;
+    autor: UsuarioResumo;
+    local: string;
+    tipo: TipoRole;
+    feitoEm: string;
+    pontos: number;
+    comentarios: number;
+  }[];
+  ajustes: AdminAjuste[];
+  participantes: UsuarioResumo[];
 }

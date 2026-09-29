@@ -1080,6 +1080,202 @@ textarea.campo__entrada {
   color: var(--ambar);
 }
 
+/* ---------- Admin ---------- */
+
+.conta__admin {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  margin-bottom: 0.5rem;
+  padding: 0 0.75rem;
+  border-radius: var(--raio-pequeno);
+  background: var(--ambar-fundo);
+  color: var(--ambar-claro);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.entrada__esqueci {
+  margin: 0.75rem 0 0;
+  text-align: center;
+}
+
+.posicao__ajuste {
+  margin: 0.125rem 0 0;
+  color: var(--ambar-claro);
+  font-size: 0.8125rem;
+}
+
+.abas--duas {
+  grid-template-columns: 1fr 1fr;
+}
+
+.admin__numeros {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.admin__numeros li {
+  padding: 0.75rem;
+  border-radius: var(--raio-pequeno);
+  background: var(--superficie);
+  color: var(--texto-fraco);
+  font-size: 0.875rem;
+}
+
+.admin__numeros strong {
+  display: block;
+  color: var(--texto);
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.admin__lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.admin__conta,
+.admin__checkin {
+  padding: 0.75rem 0.875rem;
+  border: 1px solid var(--linha);
+  border-radius: var(--raio);
+  background: var(--superficie);
+}
+
+.admin__conta-topo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.admin__conta-nome,
+.admin__conta-email,
+.admin__conta-detalhe {
+  margin: 0;
+}
+
+.admin__conta-nome {
+  font-weight: 700;
+}
+
+.admin__conta-email {
+  color: var(--texto-fraco);
+  font-size: 0.875rem;
+  word-break: break-all;
+}
+
+.admin__conta-detalhe {
+  margin-top: 0.25rem;
+}
+
+.admin__acoes {
+  display: flex;
+  gap: 0.75rem;
+  margin: 0.25rem 0 0 -0.25rem;
+}
+
+.admin__painel {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--linha);
+}
+
+.admin__painel p {
+  margin: 0 0 0.5rem;
+}
+
+.admin__senha {
+  padding: 0.625rem 0.875rem;
+  border-radius: var(--raio-pequeno);
+  background: var(--superficie-alta);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: center;
+  user-select: all;
+}
+
+.admin__previa {
+  margin: 0 0 0.75rem;
+  padding-left: 1.125rem;
+  color: var(--texto-fraco);
+}
+
+.admin__previa li + li {
+  margin-top: 0.25rem;
+}
+
+.selo--admin {
+  margin-left: 0.25rem;
+  background: var(--ambar-fundo);
+  color: var(--ambar-claro);
+  vertical-align: 0.1em;
+}
+
+.admin__ajustes {
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.admin__ajuste {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--linha);
+}
+
+.admin__ajuste-texto {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.admin__pontos {
+  min-width: 3rem;
+  color: var(--perigo);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.admin__pontos--mais {
+  color: #7fd18b;
+}
+
+.admin__checkin {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.admin__checkin p {
+  margin: 0;
+}
+
+.admin__checkin-lado {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.125rem;
+}
+
+select.campo__entrada {
+  appearance: auto;
+}
+
 /* ---------- Editar check-in ---------- */
 
 .checkin__minhas-acoes {

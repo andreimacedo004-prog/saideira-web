@@ -25,6 +25,10 @@ Outros comandos: `npm run build` (checa os tipos e gera `dist/`), `npm run lint`
 | `/desafios/:id` | Abas **Feed** (cards com foto, pontos, reações e comentários), **Ranking** (com "Como pontuar") e **Meu resumo** (seus litros e suas cervejas, só você vê, mais o total da galera). Quem criou o desafio vê **Editar desafio**: muda o nome ou apaga (com confirmação que diz quantos check-ins vão junto) |
 | `/desafios/:id/checkin` | Foto, tipo de rolê, lugar, amigos, cervejas com formato e quantidade, legenda e "esqueci de registrar na hora". Formato e quantidade não valem ponto nem aparecem no feed: vão só para o **Meu resumo** (`GET /api/desafios/:id/retrospectiva`) |
 | `/checkins/:id/editar` | A mesma tela, já preenchida, para o autor editar o check-in (botão **Editar** no card). Muda tudo menos o horário, e só enquanto o desafio não acabou |
+| `/admin` | Só para o admin (link **Área de admin** no menu da conta). Aba **Contas**: busca, gerar senha nova para quem esqueceu, excluir conta duplicada (com prévia do que vai junto). Aba **Desafios**: todos os desafios de todos os grupos |
+| `/admin/desafios/:id` | Ranking, ajustar pontos com motivo (aparece no ranking para a galera), desfazer ajuste e apagar check-in |
+
+Quem é admin é decidido no backend (`APP_ADMIN_EMAILS`); o app só esconde ou mostra o link. Admin também vê **Apagar (admin)** nos check-ins e comentários dos outros, no feed normal.
 
 ## Estrutura
 
@@ -34,7 +38,7 @@ src/
 ├── auth/           → AuthContext (token, login, cadastro, sessão expirada)
 ├── componentes/    → CartaoCheckIn, Comentarios, Ranking, SeletorDeCervejas, Avatar, Layout...
 ├── ganchos/        → useRequisicao (carregando / erro / dados)
-├── paginas/        → uma por rota
+├── paginas/        → uma por rota (a área de admin fica em paginas/admin)
 ├── fotos.ts        → compressão e upload no Cloudinary
 ├── tempo.ts        → datas ("há 2 h", "faltam 12 dias")
 ├── rotulos.ts      → emojis e nomes dos tipos de rolê e das reações

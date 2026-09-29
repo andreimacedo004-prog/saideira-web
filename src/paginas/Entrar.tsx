@@ -148,6 +148,12 @@ export default function Entrar() {
           {enviando ? "Aguarde…" : cadastrando ? "Criar conta" : "Entrar"}
         </button>
 
+        {!cadastrando && (
+          <p className="apagado pequeno entrada__esqueci">
+            Esqueceu a senha? Peça para o admin gerar uma nova — não precisa criar outra conta.
+          </p>
+        )}
+
         <p className="alternar">
           {cadastrando ? "Já tem conta? " : "Ainda não tem conta? "}
           <button type="button" onClick={trocarModo}>

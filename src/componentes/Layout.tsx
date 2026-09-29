@@ -29,6 +29,11 @@ export default function Layout() {
               <div className="conta__menu" role="menu">
                 <p className="conta__nome">{usuario.nome}</p>
                 <p className="conta__email">{usuario.email}</p>
+                {usuario.admin && (
+                  <Link to="/admin" className="conta__admin" role="menuitem" onClick={() => setMenuAberto(false)}>
+                    Área de admin
+                  </Link>
+                )}
                 <button className="conta__sair" role="menuitem" onClick={sair}>
                   Sair
                 </button>

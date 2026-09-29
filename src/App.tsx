@@ -9,6 +9,8 @@ import Convite from "./paginas/Convite";
 import Desafio from "./paginas/Desafio";
 import NovoCheckIn from "./paginas/NovoCheckIn";
 import EditarCheckIn from "./paginas/EditarCheckIn";
+import PainelAdmin from "./paginas/admin/PainelAdmin";
+import AdminDesafio from "./paginas/admin/AdminDesafio";
 
 /**
  * A `key` com o id faz a tela recomecar do zero ao trocar de desafio/grupo,
@@ -22,6 +24,11 @@ function DesafioPorId() {
 function EditarCheckInPorId() {
   const { checkInId } = useParams();
   return <EditarCheckIn key={checkInId} />;
+}
+
+function AdminDesafioPorId() {
+  const { desafioId } = useParams();
+  return <AdminDesafio key={desafioId} />;
 }
 
 function GrupoPorId() {
@@ -51,6 +58,9 @@ export default function App() {
           <Route path="/desafios/:desafioId" element={<DesafioPorId />} />
           <Route path="/desafios/:desafioId/checkin" element={<NovoCheckIn />} />
           <Route path="/checkins/:checkInId/editar" element={<EditarCheckInPorId />} />
+          {/* So para admin: o servidor responde 403 para qualquer outra conta */}
+          <Route path="/admin" element={<PainelAdmin />} />
+          <Route path="/admin/desafios/:desafioId" element={<AdminDesafioPorId />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

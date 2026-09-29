@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { mensagemDeErro } from "../api/client";
+import { apagarComentario as apagarComoAdmin } from "../api/admin";
 import { apagarComentario, comentar, comentarios as buscarComentarios } from "../api/checkins";
 import { useAutenticacao } from "../auth/AuthContext";
 import { useRequisicao } from "../ganchos/useRequisicao";
@@ -37,9 +38,9 @@ export default function Comentarios({ checkInId, donoDoCheckInId, aoMudarTotal }
     }
   }
 
-  async function apagar(comentarioId: number) {
+  async function apagar(comentarioId: number, comoAdmin: boolean) {
     try {
-      await apagarComentario(comentarioId);
+      await (comoAdmin ? apagarComoAdmin(comentarioId) : apagarComentario(comentarioId));
       const atualizada = (lista.dados ?? []).filter((c) => c.id !== comentarioId);
       lista.definir(() => atualizada);
       aoMudarTotal(atualizada.length);
@@ -54,6 +55,8 @@ export default function Comentarios({ checkInId, donoDoCheckInId, aoMudarTotal }
       <ul className="comentarios__lista">
         {lista.dados?.map((c) => {
           const podeApagar = usuario?.id === c.autor.id || usuario?.id === donoDoCheckInId;
+          // Admin apaga qualquer um (pela rota de admin, que o servidor confere)
+          const comoAdmin = !podeApagar && usuario?.admin === true;
           return (
             <li key={c.id} className="comentario">
               <p>
@@ -61,9 +64,9 @@ export default function Comentarios({ checkInId, donoDoCheckInId, aoMudarTotal }
               </p>
               <span className="comentario__rodape">
                 {tempoRelativo(c.criadoEm)}
-                {podeApagar && (
-                  <button className="link link--perigo" onClick={() => apagar(c.id)}>
-                    apagar
+                {(podeApagar || comoAdmin) && (
+                  <button className="link link--perigo" onClick={() => apagar(c.id, comoAdmin)}>
+                    {comoAdmin ? "apagar (admin)" : "apagar"}
                   </button>
                 )}
               </span>

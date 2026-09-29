@@ -31,6 +31,11 @@ export default function Ranking({ posicoes, regras }: { posicoes: PosicaoRanking
                   {eu && <span className="apagado"> (você)</span>}
                 </p>
                 <p className="posicao__detalhe">{p.checkIns > 0 ? detalhar(p) : "ainda não saiu de casa"}</p>
+                {p.ajustes.map((a, i) => (
+                  <p key={i} className="posicao__ajuste">
+                    Ajuste do admin: {a.pontos > 0 ? `+${a.pontos}` : `−${Math.abs(a.pontos)}`} · {a.motivo}
+                  </p>
+                ))}
               </div>
               <span className="posicao__pontos">{p.pontos}</span>
             </li>

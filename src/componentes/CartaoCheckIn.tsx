@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { mensagemDeErro } from "../api/client";
+import { apagarCheckIn as apagarComoAdmin } from "../api/admin";
 import { apagarCheckIn, desfazerReacao, reagir } from "../api/checkins";
 import { useAutenticacao } from "../auth/AuthContext";
 import { fotoOtimizada } from "../fotos";
@@ -47,9 +48,12 @@ export default function CartaoCheckIn({ checkIn, aoApagar, editavel = false }: P
   }
 
   async function apagar() {
-    if (!window.confirm("Apagar este check-in? Os pontos dele saem do ranking.")) return;
+    const pergunta = meu
+      ? "Apagar este check-in? Os pontos dele saem do ranking."
+      : `Apagar o check-in de ${checkIn.autor.nome}? Os pontos dele saem do ranking.`;
+    if (!window.confirm(pergunta)) return;
     try {
-      await apagarCheckIn(checkIn.id);
+      await (meu ? apagarCheckIn(checkIn.id) : apagarComoAdmin(checkIn.id));
       aoApagar(checkIn.id);
     } catch (problema) {
       setErro(mensagemDeErro(problema));
@@ -105,6 +109,11 @@ export default function CartaoCheckIn({ checkIn, aoApagar, editavel = false }: P
 
         <p className="checkin__explicacao">
           <span>{explicarPontos(checkIn)}</span>
+          {!meu && usuario?.admin && (
+            <button className="link link--perigo" onClick={apagar}>
+              Apagar (admin)
+            </button>
+          )}
           {meu && (
             <span className="checkin__minhas-acoes">
               {editavel && (
