@@ -685,6 +685,17 @@ textarea.campo__entrada {
   margin: 0.25rem 0 0;
 }
 
+.desafio__intervalo {
+  display: inline-block;
+  margin: 0.5rem 0 0;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--raio-pequeno);
+  background: var(--ambar-fundo);
+  color: var(--ambar-claro);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
 .desafio__editar,
 .grupo__editar {
   margin-top: 0.375rem;

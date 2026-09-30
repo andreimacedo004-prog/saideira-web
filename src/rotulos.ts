@@ -40,6 +40,14 @@ export const STATUS_DESAFIO: Record<StatusDesafio, string> = {
   ENCERRADO: "Encerrado",
 };
 
+/** 120 -> "2h", 90 -> "1h30", 30 -> "30 min" */
+export function descreverIntervalo(minutos: number) {
+  const horas = Math.floor(minutos / 60);
+  const resto = minutos % 60;
+  if (horas === 0) return `${resto} min`;
+  return resto === 0 ? `${horas}h` : `${horas}h${String(resto).padStart(2, "0")}`;
+}
+
 /** 1 -> "1 rolê", 2 -> "2 rolês" */
 export function plural(quantidade: number, singular: string, pluralDaPalavra: string) {
   return `${quantidade} ${quantidade === 1 ? singular : pluralDaPalavra}`;

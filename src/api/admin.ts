@@ -6,6 +6,7 @@ import type {
   AdminPreviaExclusao,
   AdminResumo,
   AdminUsuario,
+  Desafio,
 } from "../tipos";
 
 /*
@@ -32,6 +33,10 @@ export const desafio = (desafioId: number) => api.get<AdminDesafioDetalhe>(`/api
 
 export const ajustarPontos = (desafioId: number, dados: { usuarioId: number; pontos: number; motivo: string }) =>
   api.post<AdminAjuste>(`/api/admin/desafios/${desafioId}/ajustes`, dados);
+
+/** minutos = null volta ao padrao do app */
+export const definirIntervalo = (desafioId: number, minutos: number | null) =>
+  api.put<Desafio>(`/api/admin/desafios/${desafioId}/intervalo`, { minutos });
 
 export const removerAjuste = (ajusteId: number) => api.delete(`/api/admin/ajustes/${ajusteId}`);
 

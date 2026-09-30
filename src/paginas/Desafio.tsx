@@ -7,7 +7,7 @@ import GerenciarDesafio from "../componentes/GerenciarDesafio";
 import MeuResumo from "../componentes/MeuResumo";
 import Ranking from "../componentes/Ranking";
 import { useRequisicao } from "../ganchos/useRequisicao";
-import { STATUS_DESAFIO } from "../rotulos";
+import { descreverIntervalo, STATUS_DESAFIO } from "../rotulos";
 import { descreverPrazo, formatarDiaMes } from "../tempo";
 
 type Aba = "feed" | "ranking" | "resumo";
@@ -93,6 +93,11 @@ export default function Desafio() {
           <span className={`selo selo--${d.status.toLowerCase()}`}>{STATUS_DESAFIO[d.status]}</span>{" "}
           {formatarDiaMes(d.dataInicio)} a {formatarDiaMes(d.dataFim)} · {descreverPrazo(d.dataInicio, d.dataFim)}
         </p>
+        {d.intervaloMinimoMinutos !== null && (
+          <p className="desafio__intervalo">
+            ⏱ Check-in a cada {descreverIntervalo(d.intervaloMinimoMinutos)} neste desafio
+          </p>
+        )}
         {souCriador && !editando && (
           <button className="link desafio__editar" onClick={() => setEditando(true)}>
             ✏️ Editar desafio
@@ -147,7 +152,7 @@ export default function Desafio() {
       {aba === "ranking" && (
         <section>
           {posicoes.erro && <p className="erro">{posicoes.erro}</p>}
-          {posicoes.dados && <Ranking posicoes={posicoes.dados} regras={regras.dados} />}
+          {posicoes.dados && <Ranking posicoes={posicoes.dados} regras={regras.dados} intervaloMinutos={d.intervaloMinimoMinutos} />}
         </section>
       )}
 

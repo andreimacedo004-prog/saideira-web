@@ -1,5 +1,5 @@
 import { useAutenticacao } from "../auth/AuthContext";
-import { plural } from "../rotulos";
+import { descreverIntervalo, plural } from "../rotulos";
 import type { PosicaoRanking, Regras } from "../tipos";
 import Avatar from "./Avatar";
 
@@ -13,7 +13,14 @@ function detalhar(p: PosicaoRanking): string {
   return partes.join(" · ");
 }
 
-export default function Ranking({ posicoes, regras }: { posicoes: PosicaoRanking[]; regras: Regras | null }) {
+interface Props {
+  posicoes: PosicaoRanking[];
+  regras: Regras | null;
+  /** Intervalo proprio do desafio (definido pelo admin); nulo = o das regras. */
+  intervaloMinutos?: number | null;
+}
+
+export default function Ranking({ posicoes, regras, intervaloMinutos = null }: Props) {
   const { usuario } = useAutenticacao();
 
   return (
@@ -61,7 +68,8 @@ export default function Ranking({ posicoes, regras }: { posicoes: PosicaoRanking
             </li>
           </ul>
           <p className="apagado pequeno">
-            Um check-in a cada {regras.intervaloMinimoMinutos / 60}h, no máximo {regras.maxCervejasPorCheckIn} cervejas
+            Um check-in a cada {descreverIntervalo(intervaloMinutos ?? regras.intervaloMinimoMinutos)}
+            {intervaloMinutos !== null && " neste desafio"}, no máximo {regras.maxCervejasPorCheckIn} cervejas
             por check-in, e dá para registrar rolês de até {regras.maxHorasRetroativo}h atrás. Conta variedade e
             galera, não quantidade de bebida.
           </p>

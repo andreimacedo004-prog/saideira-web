@@ -58,6 +58,8 @@ export interface Desafio {
   status: StatusDesafio;
   /** So quem criou ve "Editar desafio" (o backend confere de novo). */
   criadoPorId: number;
+  /** Minutos entre check-ins so neste desafio (o admin define). Nulo = padrao de /api/regras. */
+  intervaloMinimoMinutos: number | null;
 }
 
 /** RankingItemResponse.java */
@@ -240,6 +242,7 @@ export interface AdminDesafio {
   dataFim: string;
   membros: number;
   checkIns: number;
+  intervaloMinimoMinutos: number | null;
 }
 
 export interface AdminAjuste {

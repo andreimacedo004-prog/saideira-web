@@ -22,11 +22,11 @@ Outros comandos: `npm run build` (checa os tipos e gera `dist/`), `npm run lint`
 | `/` | Desafios de todos os seus grupos (os ativos primeiro), seus grupos, criar grupo ou entrar com código |
 | `/grupos/:id` | Membros, botão **Chamar a galera** (abre o compartilhar do celular com o link) e desafios do grupo. Quem criou o grupo (ou o admin) vê **Editar nome** |
 | `/convite/:codigo` | Onde cai quem abre o link de convite. Sem conta, passa pelo cadastro e volta para cá |
-| `/desafios/:id` | Abas **Feed** (cards com foto, pontos, reações e comentários), **Ranking** (com "Como pontuar") e **Meu resumo** (seus litros e suas cervejas, só você vê, mais o total da galera). Quem criou o desafio vê **Editar desafio**: muda o nome ou apaga (com confirmação que diz quantos check-ins vão junto) |
+| `/desafios/:id` | Abas **Feed** (cards com foto, pontos, reações e comentários), **Ranking** (com "Como pontuar") e **Meu resumo** (seus litros e suas cervejas, só você vê, mais o total da galera). Quem criou o desafio vê **Editar desafio**: muda o nome ou apaga (com confirmação que diz quantos check-ins vão junto). Se o admin mudou o intervalo só neste desafio, aparece o aviso "⏱ Check-in a cada 30 min neste desafio" |
 | `/desafios/:id/checkin` | Foto, tipo de rolê, lugar, amigos, cervejas com formato e quantidade, legenda e "esqueci de registrar na hora". Formato e quantidade não valem ponto nem aparecem no feed: vão só para o **Meu resumo** (`GET /api/desafios/:id/retrospectiva`) |
 | `/checkins/:id/editar` | A mesma tela, já preenchida, para o autor editar o check-in (botão **Editar** no card). Muda tudo menos o horário, e só enquanto o desafio não acabou |
 | `/admin` | Só para o admin (link **Área de admin** no menu da conta). Aba **Contas**: busca, gerar senha nova para quem esqueceu, excluir conta duplicada (com prévia do que vai junto). Aba **Desafios**: todos os desafios de todos os grupos |
-| `/admin/desafios/:id` | Ranking, ajustar pontos com motivo (aparece no ranking para a galera), desfazer ajuste e apagar check-in |
+| `/admin/desafios/:id` | Ranking, intervalo entre check-ins só neste desafio (ex.: 30 min num show), ajustar pontos com motivo (aparece no ranking para a galera), desfazer ajuste e apagar check-in |
 
 Quem é admin é decidido no backend (`APP_ADMIN_EMAILS`); o app só esconde ou mostra o link. Admin também vê **Apagar (admin)** nos check-ins e comentários dos outros, no feed normal.
 

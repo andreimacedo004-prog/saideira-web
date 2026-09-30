@@ -1,12 +1,14 @@
 import { useState, type FormEvent } from "react";
 import { Link, useParams } from "react-router-dom";
 import * as admin from "../../api/admin";
+import { regras as buscarRegras } from "../../api/desafios";
 import { mensagemDeErro } from "../../api/client";
 import { useAutenticacao } from "../../auth/AuthContext";
 import Ranking from "../../componentes/Ranking";
 import { useRequisicao } from "../../ganchos/useRequisicao";
 import { STATUS_DESAFIO, plural, tipoDeRole } from "../../rotulos";
 import { formatarDiaMes } from "../../tempo";
+import IntervaloDoDesafio from "./IntervaloDoDesafio";
 
 function formatarDataHora(iso: string) {
   return new Date(iso).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
@@ -26,6 +28,7 @@ export default function AdminDesafio() {
 function Detalhe() {
   const desafioId = Number(useParams().desafioId);
   const detalhe = useRequisicao(() => admin.desafio(desafioId), desafioId);
+  const regras = useRequisicao(buscarRegras);
 
   const [pessoa, setPessoa] = useState("");
   const [pontos, setPontos] = useState("");
@@ -92,6 +95,16 @@ function Detalhe() {
       <section className="secao">
         <h2 className="secao__titulo">Ranking</h2>
         <Ranking posicoes={ranking} regras={null} />
+      </section>
+
+      <section className="secao">
+        <h2 className="secao__titulo">Intervalo entre check-ins</h2>
+        <IntervaloDoDesafio
+          key={desafio.id}
+          desafio={desafio}
+          padrao={regras.dados?.intervaloMinimoMinutos ?? null}
+          aoSalvar={(atualizado) => detalhe.definir((atual) => ({ ...atual!, desafio: atualizado }))}
+        />
       </section>
 
       <section className="secao">

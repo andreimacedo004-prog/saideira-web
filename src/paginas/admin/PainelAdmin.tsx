@@ -4,7 +4,7 @@ import * as admin from "../../api/admin";
 import { mensagemDeErro } from "../../api/client";
 import { useAutenticacao } from "../../auth/AuthContext";
 import { useRequisicao } from "../../ganchos/useRequisicao";
-import { STATUS_DESAFIO, plural } from "../../rotulos";
+import { descreverIntervalo, plural, STATUS_DESAFIO } from "../../rotulos";
 import { formatarDiaMes } from "../../tempo";
 import type { AdminPreviaExclusao, AdminUsuario } from "../../tipos";
 
@@ -323,6 +323,7 @@ function Desafios() {
               <span className="cartao-desafio__detalhe">
                 {d.grupoNome} · {formatarDiaMes(d.dataInicio)} a {formatarDiaMes(d.dataFim)} ·{" "}
                 {plural(d.membros, "pessoa", "pessoas")} · {plural(d.checkIns, "check-in", "check-ins")}
+                {d.intervaloMinimoMinutos !== null && <> · ⏱ {descreverIntervalo(d.intervaloMinimoMinutos)}</>}
               </span>
             </Link>
           </li>
