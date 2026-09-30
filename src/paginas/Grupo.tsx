@@ -1,8 +1,10 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useAutenticacao } from "../auth/AuthContext";
 import { mensagemDeErro } from "../api/client";
 import { buscarGrupo, criarDesafio, desafiosDoGrupo, linkDeConvite } from "../api/grupos";
 import Avatar from "../componentes/Avatar";
+import RenomearGrupo from "../componentes/RenomearGrupo";
 import { useRequisicao } from "../ganchos/useRequisicao";
 import { STATUS_DESAFIO, plural } from "../rotulos";
 import { descreverPrazo, paraDataIso } from "../tempo";
@@ -20,11 +22,13 @@ function fimSugerido(hoje = new Date()): string {
 export default function Grupo() {
   const grupoId = Number(useParams().grupoId);
   const navegar = useNavigate();
+  const { usuario } = useAutenticacao();
 
   const grupo = useRequisicao(() => buscarGrupo(grupoId), grupoId);
   const desafios = useRequisicao(() => desafiosDoGrupo(grupoId), grupoId);
 
   const [avisoConvite, setAvisoConvite] = useState<string | null>(null);
+  const [renomeando, setRenomeando] = useState(false);
 
   const [criando, setCriando] = useState(false);
   const [nome, setNome] = useState("Rolês de Fim de Ano");
@@ -71,6 +75,9 @@ export default function Grupo() {
   if (grupo.erro) return <p className="erro pagina">{grupo.erro}</p>;
   if (!grupo.dados) return <p className="apagado pagina">Carregando…</p>;
 
+  // O backend confere de novo; aqui so decide se o botao aparece
+  const podeRenomear = usuario?.id === grupo.dados.criadoPorId || usuario?.admin === true;
+
   return (
     <div className="pagina">
       <Link to="/" className="voltar">
@@ -78,6 +85,21 @@ export default function Grupo() {
       </Link>
       <h1 className="titulo">{grupo.dados.nome}</h1>
       <p className="apagado">{plural(grupo.dados.membros.length, "pessoa", "pessoas")}</p>
+      {podeRenomear && !renomeando && (
+        <button className="link grupo__editar" onClick={() => setRenomeando(true)}>
+          ✏️ Editar nome
+        </button>
+      )}
+      {renomeando && (
+        <RenomearGrupo
+          grupo={grupo.dados}
+          aoSalvar={(atualizado) => {
+            grupo.definir(() => atualizado);
+            setRenomeando(false);
+          }}
+          aoFechar={() => setRenomeando(false)}
+        />
+      )}
 
       <ul className="membros">
         {grupo.dados.membros.map((m) => (

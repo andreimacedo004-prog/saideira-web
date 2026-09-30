@@ -7,6 +7,8 @@ export const buscarGrupo = (grupoId: number) => api.get<Grupo>(`/api/grupos/${gr
 
 export const criarGrupo = (nome: string) => api.post<Grupo>("/api/grupos", { nome });
 
+export const renomearGrupo = (grupoId: number, nome: string) => api.patch<Grupo>(`/api/grupos/${grupoId}`, { nome });
+
 export const entrarNoGrupo = (codigoConvite: string) =>
   api.post<Grupo>("/api/grupos/entrar", { codigoConvite });
 
